@@ -33,7 +33,8 @@ const SubscriptionForm = () => {
   useEffect(() => {
     if (!formData.plan) return setPrice(0);
     const basePrice = planPrices[formData.plan];
-    const total = basePrice * formData.meals.length * formData.days.length * 4.3;
+    const total =
+      basePrice * formData.meals.length * formData.days.length * 4.3;
     setPrice(total);
   }, [formData]);
 
@@ -66,6 +67,12 @@ const SubscriptionForm = () => {
       return;
     }
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Anda harus login terlebih dahulu untuk berlangganan.");
+      return;
+    }
+
     const payload = {
       ...formData,
       totalPrice: price,
@@ -74,12 +81,15 @@ const SubscriptionForm = () => {
     try {
       const response = await fetch("http://localhost:5000/api/subscriptions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(payload),
       });
 
       if (response.ok) {
-        alert("Formulir berhasil dikirim!");
+        alert("Langganan berhasil dikirim! Kami akan segera menghubungi Anda.");
         setFormData({
           name: "",
           phone: "",
@@ -123,7 +133,9 @@ const SubscriptionForm = () => {
           </div>
 
           <div>
-            <label className="block font-medium mb-1">*Nomor Telepon Aktif</label>
+            <label className="block font-medium mb-1">
+              *Nomor Telepon Aktif
+            </label>
             <input
               type="tel"
               name="phone"
@@ -211,11 +223,9 @@ const SubscriptionForm = () => {
         </form>
       </motion.div>
 
-      {/* Motif Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 opacity-40 blur-3xl -z-10" />
     </section>
   );
 };
-alert("Langganan berhasil dikirim! Kami akan segera menghubungi Anda.");
 
 export default SubscriptionForm;

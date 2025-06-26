@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.get("/", (req, res) => {
   res.send("SEA Catering API is running!");
 });
 
+app.use("/api/subscriptions", subscriptionRoutes);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -24,3 +27,6 @@ mongoose
     );
   })
   .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);

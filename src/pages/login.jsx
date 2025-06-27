@@ -63,8 +63,19 @@ const Login = () => {
             className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
           >
             Login
+
+ 
           </button>
         </form>
+        <p className="mt-4 text-sm text-gray-600 text-center">
+            Belum punya akun?{" "}
+            <span
+                onClick={() => navigate("/register")}
+                className="text-green-600 cursor-pointer underline"
+                >
+            Buat akun
+        </span>
+        </p>
       </div>
     </section>
   );

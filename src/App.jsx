@@ -7,6 +7,7 @@ import MealPlans from './pages/MealPlans'
 import Subscription from'./pages/Subscription';
 import AdminDashboard from "./pages/AdminDashboard";
 import Login from "./pages/login";
+import Register from "./pages/Register";
 
 const App = () => {
   console.log('App Rendered!');
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/admin" element={<AdminDashboard />} />
            <Route path="/login" element={<Login />} />
+           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
       

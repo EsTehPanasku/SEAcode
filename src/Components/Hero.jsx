@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -11,9 +12,19 @@ const images = [
 ];
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/subscription");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 min-h-screen bg-green-50 px-6 md:px-16 items-center">
-      
       {/* Left: Swiper Image */}
       <div className="w-full h-[300px] md:h-[500px]">
         <Swiper
@@ -44,7 +55,10 @@ const Hero = () => {
         <p className="mt-6 text-lg text-slate-700 max-w-lg">
           SEA Catering menghadirkan layanan makanan sehat yang bisa dikustomisasi, dengan pengiriman ke seluruh Indonesia. Praktis, sehat, dan lezat — semua dalam satu layanan!
         </p>
-        <button className="mt-6 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
+        <button
+          onClick={handleClick}
+          className="mt-6 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+        >
           Pesan Sekarang
         </button>
       </div>
@@ -53,5 +67,7 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
 
 

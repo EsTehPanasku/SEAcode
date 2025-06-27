@@ -5,7 +5,7 @@ import Contact from './Components/Contact';
 import Home from './pages/Home';
 import MealPlans from './pages/MealPlans'
 import Subscription from'./pages/Subscription';
-
+import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => {
   console.log('App Rendered!');
@@ -17,10 +17,12 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<MealPlans />} />
           <Route path="/subscription" element={<Subscription />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </div>
       
       <Contact />
+      
     </div>
   );
 };

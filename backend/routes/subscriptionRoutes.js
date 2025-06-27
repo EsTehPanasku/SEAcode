@@ -3,9 +3,7 @@ const router = express.Router();
 const Subscription = require('../models/Subscription');
 const { protect, adminOnly } = require('../middleware/authMiddleware');
 
-// @desc    Buat langganan baru (hanya user login)
-// @route   POST /api/subscriptions
-// @access  Private
+
 router.post('/', protect, async (req, res) => {
   try {
     const newSub = new Subscription({
@@ -20,9 +18,6 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
-// @desc    Ambil semua langganan milik user login
-// @route   GET /api/subscriptions/me
-// @access  Private
 router.get('/me', protect, async (req, res) => {
   try {
     const subs = await Subscription.find({ user: req.user.id });
@@ -32,11 +27,48 @@ router.get('/me', protect, async (req, res) => {
   }
 });
 
-// (opsional ke depannya) @desc    Ambil semua langganan (hanya admin)
-// router.get('/', protect, adminOnly, async (req, res) => {
-//   const allSubs = await Subscription.find().populate("user", "fullName email");
-//   res.status(200).json(allSubs);
-// });
+router.get('/me', protect, async (req, res) => {
+  try {
+    const subs = await Subscription.find({ user: req.user.id });
+    res.status(200).json(subs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.patch('/pause/:id', protect, async (req, res) => {
+  const { start, end } = req.body;
+  try {
+    const sub = await Subscription.findById(req.params.id);
+    if (!sub || sub.user.toString() !== req.user.id)
+      return res.status(404).json({ message: "Subscription tidak ditemukan" });
+
+    sub.isPaused = true;
+    sub.pausePeriod = { start, end };
+    await sub.save();
+
+    res.json({ message: "Subscription berhasil di-pause", data: sub });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.patch('/cancel/:id', protect, async (req, res) => {
+  try {
+    const sub = await Subscription.findById(req.params.id);
+    if (!sub || sub.user.toString() !== req.user.id)
+      return res.status(404).json({ message: "Subscription tidak ditemukan" });
+
+    sub.isCancelled = true;
+    await sub.save();
+
+    res.json({ message: "Subscription berhasil dibatalkan", data: sub });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 module.exports = router;
+
 

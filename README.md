@@ -1,12 +1,38 @@
-# React + Vite
+# SEA Catering
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SEA Catering** adalah aplikasi web pemesanan makanan sehat berbasis langganan. Dibuat menggunakan **React**, **Tailwind CSS**, **Express**, **MongoDB**, dan **Vite**, aplikasi ini memungkinkan pengguna untuk memilih meal plan, menjadwalkan pengiriman, serta memantau dan mengelola langganannya.
 
-Currently, two official plugins are available:
+## Fitur Utama
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Untuk Pengguna:
+- Registrasi dan login aman dengan JWT
+- Pemilihan plan diet: Diet, Protein, Royal
+- Pemilihan jenis makan: Breakfast, Lunch, Dinner
+- Pemilihan hari pengiriman
+- Estimasi harga otomatis
+- Form langganan interaktif dan responsif
+- Dashboard pengguna untuk:
+  - Melihat langganan aktif
+  - Pause langganan sementara
+  - Batalkan langganan
 
-## Expanding the ESLint configuration
+### Untuk Admin:
+- Dashboard admin dengan filter tanggal
+- Statistik bisnis: langganan baru, MRR, reaktivasi, pertumbuhan langganan
+- Akses terbatas untuk admin (berdasarkan role)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Teknologi yang Digunakan
+
+- **Frontend**: React, Tailwind CSS, Framer Motion, Swiper.js
+- **Backend**: Node.js, Express.js, Mongoose
+- **Database**: MongoDB (dengan MongoDB Atlas)
+- **Autentikasi**: JSON Web Token (JWT)
+- **Validasi & Keamanan**:
+  - Validasi email, nomor HP, dan form
+  - Proteksi dari XSS dan CSRF
+  - Password di-hash dengan bcrypt
+
+### 1. Clone repository ini
+```bash
+git clone https://github.com/EsTehPanasku/SEAcode.git
+cd sea-catering
